@@ -24,6 +24,9 @@ export const HomeScreen = () => {
       <Button style={styles.button} mode="elevated">
         Activar app
       </Button>
+      <Button style={styles.button} mode="elevated">
+        Activar app
+      </Button>
     </View>
   );
 };
