@@ -1,49 +1,42 @@
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {TextInput, Button, Text} from 'react-native-paper';
-import DeviceInfo from 'react-native-device-info';
-
+import {View, Text} from 'react-native';
+import React from 'react';
+import axios from 'axios';
+import { Button } from 'react-native-paper';
 export const HomeScreen = () => {
-  const [UserID, setUserID] = useState('');
-  console.log(UserID);
-  return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.textInput}
-        label="Ingresa el UUID del dispositivo"
-        value={UserID}
-        onChangeText={text => setUserID(text)}
-        mode="flat"
-        // disabled
-      />
+  const fetchDataWithFetch = async () => {
+    const username = 'CentralInformatica_Token';
+    const password = 'BW_cenTRAL1nf0r34tiC4*+t9WnET';
+    const authToken = from(`${username}:${password}`).toString('base64');
 
-      <Text style={styles.title}>identificador del dispositivo:</Text>
-      <Button style={styles.button} mode="elevated">
-        Generar identificador
-      </Button>
-      <Button style={styles.button} mode="elevated">
-        Activar app
-      </Button>
-      <Button style={styles.button} mode="elevated">
-        Activar app
+    try {
+      const response = await fetch(
+        'https://bwgateway.centralinformatica.com/api/Parametros',
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Basic ${authToken}`,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Error en la solicitud');
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <View>
+      <Text>HomeScreen</Text>
+      <Button onPress={fetchDataWithFetch}>
+        get data
       </Button>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-
-    // alignItems:'center',
-    //  backgroundColor: Colors.,
-  },
-  textInput: {
-    marginBottom: 15,
-    marginTop: 15,
-  },
-  title: {textAlign: 'center'},
-  button: {
-    marginBottom: 15,
-  },
-});

@@ -1,0 +1,58 @@
+funcionalidades que deberá tener la aplicación que debes desarrollar:
+
+- La aplicación consumira dos webapi's:
+  1) Webapi para activar/registrar la app:
+       - Se mandará un UUID y un identificador único del dispositivo movil, puede ser la mac del dispositivo o un identificador
+         - Si los datos proporcionados son correctos, se activa la app y se recupera la url a consumir para acceder a la base de datos del cliente
+  ----------------------------------------------------------
+
+2) Webapi para acceder a los datos del cliente. Está pendiente por determinar si esta url se guardará en el dispositivo o si se estará consultando este dato cada que inicie la app
+- Una vez activada la app se carga la pantalla de inicio, la cual deberá contener estos datos dinámicos que recupera usando la 2da webapi:
+  - Color principal del tema
+  - Título de la app
+  - Logitipo del cliente
+
+---------------------------------------------------------------
+
+la liga para consumir la webapi que usarás para activar la app y te explico como podrás accesarla:
+
+https://bwgateway.centralinformatica.com/api/Parametros
+
+La api utiliza autenticación básica, estos son los datos de acceso:
+
+Usuario: CentralInformatica_Token
+Pass: BW_cenTRAL1nf0r34tiC4*+t9WnET
+
+En el cuerpo de la petición deberás proporcionar dos cadenas parámetros:
+
+IdDispositivo:"abbcd"
+UUID:"1234"
+
+
+Si la petición se hace correctamente, el sistema te regresará una serie de parámetros para la personalización de la pantalla de activación:
+
+{
+        "Id_Parametro": 1,
+        "Grupo": "Activacion",
+        "Parametro": "ActivacionColorFondo",
+        "Descripcion": "Color de fondo de la pantalla de activación",
+        "Valor": "white",
+        "Habilitado": true
+    },
+    {
+        "Id_Parametro": 2,
+        "Grupo": "Activacion",
+        "Parametro": "ActivacionLogo",
+        "Descripcion": "Logo a mostrar en la pantalla de activación",
+        "Valor": "",
+        "Habilitado": true
+    },
+    {
+        "Id_Parametro": 3,
+        "Grupo": "Activacion",
+        "Parametro": "ActivacionTitulo",
+        "Descripcion": "Título a mostrar en la pantalla de activación",
+        "Valor": "BW App",
+        "Habilitado": true
+    }
+]
